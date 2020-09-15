@@ -1,28 +1,54 @@
 ---
-title: "p8105_hw1_ys3297"
+title: "hw1"
+author: Yi Sun
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Solution to hw1.
+
+```{r, include = FALSE}
+library(tidyverse)
 ```
 
-## R Markdown
+# Problem 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Create a data frame comprised of specified elements.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+prob1_df = 
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_leng_10 = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_3_lvl = factor(c("high", "high", "high", "high", "mod", "mod", "mod", "low", "low", "low"))
+)
 ```
 
-## Including Plots
+Try to take the mean of each variable in the data frame.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+mean(pull(prob1_df, samp))
+mean(pull(prob1_df, samp_gt_0))
+mean(pull(prob1_df, char_leng_10))
+mean(pull(prob1_df, factor_3_lvl))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+I can only take the mean of numeric or logical variables but not character or factor variables.
+
+```{r, eval = FALSE}
+as.numeric(pull(prob1_df, samp_gt_0))
+as.numeric(pull(prob1_df, char_leng_10))
+as.numeric(pull(prob1_df, factor_3_lvl))
+```
+
+Logical and factor variables are converted to numeric variables, but I cannot convert character variables to numeric variables. I think it's because character variables don't have an order and the letters are all "equal." 
+
+This may help explain why I can only take the mean of numeric or logical variables: factor variables are not numbers before being converted to numeric variables, and logical variables are interpreted as "1" for "yes" and "0" for "no" when I take the mean. Character variables are not numbers and even cannot be converted to numeric variables.
+
+```{r}
+as.numeric(pull(prob1_df, samp_gt_0))*pull(prob1_df, samp)
+as.factor(pull(prob1_df, samp_gt_0))*pull(prob1_df, samp)
+as.numeric(as.factor(pull(prob1_df, samp_gt_0)))*pull(prob1_df, samp)
+```
+
+# Problem 2
