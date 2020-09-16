@@ -1,12 +1,12 @@
 ---
-title: "hw1"
+title: "HW1"
 author: Yi Sun
 output: github_document
 ---
 
-Solution to hw1.
+Solution to HW1.
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 library(tidyverse)
 ```
 
@@ -14,7 +14,7 @@ library(tidyverse)
 
 Create a data frame comprised of specified elements.
 
-```{r}
+```{r prob1_data_frame}
 prob1_df = 
   tibble(
     samp = rnorm(10),
@@ -26,7 +26,7 @@ prob1_df =
 
 Try to take the mean of each variable in the data frame.
 
-```{r}
+```{r prob1_mean}
 mean(pull(prob1_df, samp))
 mean(pull(prob1_df, samp_gt_0))
 mean(pull(prob1_df, char_leng_10))
@@ -35,20 +35,40 @@ mean(pull(prob1_df, factor_3_lvl))
 
 I can only take the mean of numeric or logical variables but not character or factor variables.
 
-```{r, eval = FALSE}
+```{r prob1_convert, eval=FALSE}
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_leng_10))
 as.numeric(pull(prob1_df, factor_3_lvl))
 ```
 
-Logical and factor variables are converted to numeric variables, but I cannot convert character variables to numeric variables. I think it's because character variables don't have an order and the letters are all "equal." 
+The logical variable `samp_gt_0` and factor variable `factor_3_lvl` are converted into numeric variables, but I cannot convert the character variable `char_leng_10` into a numeric variable (returning NAs). I think it's because there are characters included in the string values of `char_leng_10` (i.e., string values like "111", "222", "333" of a character variable can be converted into numeric values).
 
-This may help explain why I can only take the mean of numeric or logical variables: factor variables are not numbers before being converted to numeric variables, and logical variables are interpreted as "1" for "yes" and "0" for "no" when I take the mean. Character variables are not numbers and even cannot be converted to numeric variables.
+This may help explain why I can only take the mean of numeric or logical variables: values of factor variables are not numbers before factor variables are converted into numeric variables, and values of logical variables are interpreted as "1" for "yes" and "0" for "no" when I take the mean. String values of character variables including characters are not numbers and even cannot be converted into numeric values.
 
-```{r}
+```{r prob1_multiply}
 as.numeric(pull(prob1_df, samp_gt_0))*pull(prob1_df, samp)
 as.factor(pull(prob1_df, samp_gt_0))*pull(prob1_df, samp)
 as.numeric(as.factor(pull(prob1_df, samp_gt_0)))*pull(prob1_df, samp)
 ```
 
+`as.factor` function can convert logical variables into factor variables, but the result of conversion cannot directly multiply numeric variables. I can only multiply numeric variables by numeric variables.
+
 # Problem 2
+
+The summary of the `penguins` dataset is as below:
+
+```{r data_summary}
+data("penguins", package = "palmerpenguins")
+summary(penguins)
+```
+
+This dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+
+The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)` mm.
+
+Make a scatterplot of `flipper_length_mm` (y) vs `bill_length_mm` (x) and color points using the `species` variable. The scatterplot will be saved as "hw1_prob2_scatterplot.png".
+
+```{r scatterplot}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+ggsave(file = "hw1_prob2_scatterplot.png")
+```
