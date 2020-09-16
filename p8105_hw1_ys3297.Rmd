@@ -45,7 +45,7 @@ as.numeric(pull(prob1_df, factor_3_lvl))
 
 The logical variable `samp_gt_0` and factor variable `factor_3_lvl` are converted into numeric variables, but I cannot convert the character variable `char_leng_10` into a numeric variable (returning NAs). I think it's because there are characters included in the string values of `char_leng_10` (i.e., string values like "111", "222", "333" of a character variable can be converted into numeric values).
 
-This may help explain why I can only take the mean of numeric or logical variables: values of factor variables are not numbers before factor variables are converted into numeric variables, and values of logical variables are interpreted as "1" for "yes" and "0" for "no" when I take the mean. String values of character variables including characters are not numbers and even cannot be converted into numeric values.
+This may help explain why I can only take the mean of numeric or logical variables: values of factor variables are not numbers before factor variables are converted into numeric variables, and values of logical variables are interpreted as 1 for TRUE and 0 for FALSE when I take the mean. String values of character variables including characters are not numbers and even cannot be converted into numeric values.
 
 Try to multiply the numeric variable `samp` by the results of different conversions on the logical variable `samp_gt_0`.
 
