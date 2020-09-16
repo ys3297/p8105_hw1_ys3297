@@ -6,8 +6,6 @@ output: github_document
 
 Solution to HW1.
 
-Load the package `tidyverse`.
-
 ```{r setup, include = FALSE}
 library(tidyverse)
 ```
