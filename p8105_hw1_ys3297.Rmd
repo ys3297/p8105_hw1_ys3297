@@ -6,6 +6,8 @@ output: github_document
 
 Solution to HW1.
 
+Load the package `tidyverse`.
+
 ```{r setup, include = FALSE}
 library(tidyverse)
 ```
@@ -35,6 +37,8 @@ mean(pull(prob1_df, factor_3_lvl))
 
 I can only take the mean of numeric or logical variables but not character or factor variables.
 
+Try to convert the logical variable `samp_gt_0`, character variable `char_leng_10`, and factor variable `factor_3_lvl` into numeric variables.
+
 ```{r prob1_convert, eval=FALSE}
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_leng_10))
@@ -44,6 +48,8 @@ as.numeric(pull(prob1_df, factor_3_lvl))
 The logical variable `samp_gt_0` and factor variable `factor_3_lvl` are converted into numeric variables, but I cannot convert the character variable `char_leng_10` into a numeric variable (returning NAs). I think it's because there are characters included in the string values of `char_leng_10` (i.e., string values like "111", "222", "333" of a character variable can be converted into numeric values).
 
 This may help explain why I can only take the mean of numeric or logical variables: values of factor variables are not numbers before factor variables are converted into numeric variables, and values of logical variables are interpreted as "1" for "yes" and "0" for "no" when I take the mean. String values of character variables including characters are not numbers and even cannot be converted into numeric values.
+
+Try to multiply the numeric variable `samp` by the results of different conversions on the logical variable `samp_gt_0`.
 
 ```{r prob1_multiply}
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
@@ -57,7 +63,7 @@ as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 
 The summary of the `penguins` dataset is as below:
 
-```{r data_summary}
+```{r prob2_data_summary}
 data("penguins", package = "palmerpenguins")
 summary(penguins)
 ```
@@ -68,7 +74,7 @@ The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TR
 
 Make a scatterplot of `flipper_length_mm` (y) vs `bill_length_mm` (x) and color points using the `species` variable.
 
-```{r scatterplot}
+```{r prob2_scatterplot}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 ggsave(file = "hw1_prob2_scatterplot.png")
 ```
