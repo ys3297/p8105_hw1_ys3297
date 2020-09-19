@@ -66,6 +66,8 @@ data("penguins", package = "palmerpenguins")
 summary(penguins)
 ```
 
+Variables in this dataset include: `r names(penguins)`.
+
 The `r class(pull(penguins, species))` variable `species` has `r nlevels(pull(penguins, species))` levels: `r levels(pull(penguins, species))`.
 
 The `r class(pull(penguins, island))` variable `island` has `r nlevels(pull(penguins, island))` levels: `r levels(pull(penguins, island))`.
