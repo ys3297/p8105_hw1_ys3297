@@ -66,6 +66,14 @@ data("penguins", package = "palmerpenguins")
 summary(penguins)
 ```
 
+The `r class(pull(penguins, species))` variable `species` has `r nlevels(pull(penguins, species))` levels: `r levels(pull(penguins, species))`.
+
+The `r class(pull(penguins, island))` variable `island` has `r nlevels(pull(penguins, island))` levels: `r levels(pull(penguins, island))`.
+
+The `r class(pull(penguins, bill_length_mm))` variable `bill_length_mm`'s range is (`r  range(pull(penguins, bill_length_mm), na.rm = TRUE)`), and its mean is `r mean(pull(penguins, bill_length_mm), na.rm = TRUE)`.
+
+The `r class(pull(penguins, flipper_length_mm))` variable `flipper_length_mm`'s range is (`r  range(pull(penguins, flipper_length_mm), na.rm = TRUE)`), and its median is `r median(pull(penguins, flipper_length_mm), na.rm = TRUE)`.
+
 This dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 
 The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)` mm.
